@@ -11,6 +11,7 @@ if(fopen("ListaClientes.txt" , "r") ==  NULL){
 }
 while(teste == 1){
     addClientList();
+    editorfiles();
     printf("Deseja continuar?");
     scanf("%d", &teste);
     while ((c = getchar()) != '\n' && c != EOF);

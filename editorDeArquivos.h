@@ -5,7 +5,7 @@
 
 FILE *file;
 
-void newClientList() { // Criando novo arquivo para a base de dados
+void newClientList() { // Making a new file for client list
     file = fopen("ListaClientes.txt", "w");
     if (file == NULL) {
         printf("Erro ao criar o arquivo.\n");
@@ -16,7 +16,7 @@ void newClientList() { // Criando novo arquivo para a base de dados
     fclose(file);
 }
 
-void addClientList(){
+void addClientList(){ // Add. new clients
     srand(time(NULL));
     struct client {
         char name[50];
@@ -36,7 +36,7 @@ void addClientList(){
     printf("Qual a idade do Cliente:\n");
     scanf("%d", &newClient.age); 
 
-    printf("Digite um documento com pontos e traços:\n");
+    printf("Digite um documento sem pontos e traços:\n");
     scanf("%14s", newClient.cpf);
 
     // Definindo um ID para o cliente
@@ -53,3 +53,45 @@ void addClientList(){
     fclose(file);
     printf("Cliente adicionado com sucesso!\n");
 }
+
+#include <stdio.h>
+#include <string.h>
+
+void editorfiles() {
+    struct client {
+        char name[50];
+        int age;
+        char cpf[15];
+        int user_id;
+
+    } searchClient;
+
+    char pesquisa[50];
+    char clienteEncontrado[100];
+
+    file = fopen("ListaClientes.txt", "r");
+
+    if(file == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    printf("Qual pessoa voce esta procurando? ");
+    scanf("%49s", pesquisa);
+
+    int found = 0;
+    while (fscanf(file, "%49s", clienteEncontrado) != EOF) {
+        if (strcmp(clienteEncontrado, pesquisa) == 0) {
+            printf("Cliente encontrado: %s\n", clienteEncontrado);
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("Cliente não encontrado.\n");
+    }
+
+    fclose(file);
+}
+
